@@ -15,19 +15,30 @@
  
 
 //-------- Customise these values -----------
-const char* ssid = "beatrice";
-const char* password = "beatrice";
+const char* ssid = "The Promised LAN";
+const char* password = "gr$$n.2018";
 
 //Constants
 #define DHTPIN 4     // what pin we're connected to
 #define DHTTYPE DHT11   // DHT 22  (AM2302)
 DHT dht(DHTPIN, DHTTYPE); //// Initialize DHT sensor for normal 16mhz Arduino
 
-#define ORG "22tdf0"
-#define DEVICE_TYPE "ESP8266"
-#define DEVICE_ID "port1"
-#define TOKEN "4_CvlB8?MdF-hWdX0)"
+#define ORG "63gdf0"
+#define DEVICE_TYPE "ESP266"
+#define DEVICE_ID "Test1"
+#define TOKEN "IBS*N_D9+xmKBiC7Rl"
 //-------- Customise the above values --------
+
+
+
+ // Prepare a JSON payload string
+  /**
+   * String payload = "{"d":{"myName":"ESP8266.Test1","counter":";
+ payload += counter;
+ payload += "}}";
+ 
+   */
+   //
 
 char server[] = ORG ".messaging.internetofthings.ibmcloud.com";
 char authMethod[] = "use-token-auth";
@@ -74,7 +85,7 @@ void setup() {
   
 }
 
-
+int counter = 0;
 time_t prevDisplay = 0;
 void loop() {
   if (timeStatus() != timeNotSet) {
@@ -202,23 +213,13 @@ void getAndSendTemperatureAndHumidityData()
   String mo = String(month());
   String ye = String(year());
 
-  // Prepare a JSON payload string
-  String payload = "{";
-  payload += "\" device_id\":";
-  payload += DEVICE_ID; payload +=",";
-  payload += "\"temperature\":"; 
-  payload += temperature; payload += ",";
-  payload += "\"humidity\":"; 
-  payload += humidity; payload += ",";
-  payload += "\" Time\":";
-  payload += ho; payload += ".";
-  payload += mi; payload += ".";
-  payload += se; payload += ",";
-  payload += "\" day\":"; 
-  payload += da; payload += ".";
-  payload += mo; payload += ".";
-  payload += ye; 
-  payload += "}";
+ String payload = "{\"d\":{\"Name\":\"Test1\"";
+ payload += ",\"counter\":";
+ payload += counter++;
+ payload += ",\"Temperature\":"; payload += temperature;
+ payload += ",\"Humidity\":"; payload += humidity;
+ payload += "}}";
+
 
 
 Serial.print("Sending payload: "); Serial.println(payload);
