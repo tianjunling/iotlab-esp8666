@@ -247,6 +247,7 @@ void digitalClockDisplay(){
   Serial.print(".");
   Serial.print(year()); 
   Serial.println(); 
+  Serial.println(); 
 }
 
 
